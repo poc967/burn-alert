@@ -12,7 +12,7 @@ function getUvIndex(location) {
 const sunscreenIntentHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-            && handlerInputInput.requestEnvelope.request.intent.name === 'sunscreenIntent'
+            && handlerInput.requestEnvelope.request.intent.name === 'sunscreenIntent'
     },
     handle(handlerInput) {
         const uvDate = handler.Input.requestEnvelope.reuest.intent.slots.Date.value
