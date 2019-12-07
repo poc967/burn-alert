@@ -1,0 +1,42 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "burn alert",
+            "intents": [{
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "sunscreenIntent",
+                    "slots": [{
+                        "name": "Location",
+                        "type": "AMAZON.US_CITY"
+                    }],
+                    "samples": [
+                        "Will I get a sunburn in {Location}",
+                        "How strong is the sun in {Location}",
+                        "Do I need sunscreen in {Location}",
+                        "What is the UV index in {Location} "
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}

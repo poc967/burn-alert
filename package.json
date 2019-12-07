@@ -1,13 +1,17 @@
 {
   "name": "burn-alert",
   "version": "1.0.0",
-  "description": "",
+  "description": "Alexa skill providing up-to-date information on U.V. Index. Powered by Dark Sky: https://darksky.net/poweredby/ and Mapquest",
   "main": "index.js",
   "scripts": {
-    "build": "",
+    "build": "npm run build:clean && npm run build:zip",
+    "build:clean": "rm -f burnAlert.zip",
+    "build:zip": "zip -r burnAlert.zip ./node_modules index.js",
+    "deploy": "npm run build && npm run upload",
+    "upload": "aws2 lambda update-function-code --function-name burnAlertSkill --zip-file \"fileb://burnAlert.zip\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Patrick O'Connor",
   "license": "ISC",
   "dependencies": {
     "ask-sdk-core": "^2.7.0",
