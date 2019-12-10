@@ -66,17 +66,15 @@ const sunscreenIntentHandler = {
         const uvLocation = await getDecimalLocation(handlerInput.requestEnvelope.request.intent.slots.Location.value)
         const reprompt = 'Would you like more information?'
 
+        const uvIndex = await getUvIndex(uvLocation)
+        const speechText = `The current UV Index is ${uvIndex}. `
+        const riskText = getRiskText(uvIndex)
 
-        return await getUvIndex(uvLocation).then((uvIndex) => {
-            const speechText = `The current UV Index is ${uvIndex}. `
-            const riskText = getRiskText(uvIndex)
-
-            return handlerInput.responseBuilder
-                .speak(speechText + riskText)
-                .reprompt(reprompt)
-                .withShouldEndSession(false)
-                .getResponse();
-        })
+        return handlerInput.responseBuilder
+            .speak(speechText + riskText)
+            .reprompt(reprompt)
+            .withShouldEndSession(false)
+            .getResponse();
     }
 }
 
@@ -135,6 +133,18 @@ const launchRequestHandler = {
     }
 }
 
+const sessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest'
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak("Bye!")
+            .withShouldEndSession(true)
+            .getResponse()
+    }
+}
+
 const ErrorHandler = {
     canHandle() {
         return true
@@ -156,7 +166,8 @@ exports.handler = builder
         fallbackIntentHandler,
         cancelAndStopIntentHandler,
         helpIntentHandler,
-        launchRequestHandler
+        launchRequestHandler,
+        sessionEndedRequestHandler
     )
     .addErrorHandlers(ErrorHandler)
     .lambda()
