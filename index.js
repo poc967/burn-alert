@@ -7,9 +7,8 @@ const axios = require('axios')
 async function getUvIndex(location) {
     const apikey = process.env.DarkSky_API_KEY
 
-    return await axios.get(`https://api.darksky.net/forecast/${apikey}/${location}?exclude=minutely,hourly,daily`).then((response) => {
-        return response.data.currently.uvIndex
-    })
+    const response = await axios.get(`https://api.darksky.net/forecast/${apikey}/${location}?exclude=minutely,hourly,daily`)
+    return response.data.currently.uvIndex
 }
 
 
@@ -19,12 +18,10 @@ async function getUvIndex(location) {
 async function getDecimalLocation(Location) {
     const apikey = process.env.MapQuest_API_KEY
 
-    return await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${apikey}&location=${Location}&maxResults=1`).then((response) => {
-        const lat = response.data.results[0].locations[0].latLng.lat
-        const lng = response.data.results[0].locations[0].latLng.lng
-
-        return `${lat},${lng}`
-    })
+    const response = await axios.get(`http://www.mapquestapi.com/geocoding/v1/address?key=${apikey}&location=${Location}&maxResults=1`)
+    const lat = response.data.results[0].locations[0].latLng.lat
+    const lng = response.data.results[0].locations[0].latLng.lng
+    return `${lat},${lng}`
 }
 
 // https://www.epa.gov/sunsafety/uv-index-scale-0
