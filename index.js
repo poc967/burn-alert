@@ -61,7 +61,7 @@ const sunscreenIntentHandler = {
     },
     async handle(handlerInput) {
         const uvLocation = await getDecimalLocation(handlerInput.requestEnvelope.request.intent.slots.Location.value)
-        const reprompt = 'Would you like more information?'
+        const reprompt = 'Provide a new location for new information'
 
         const uvIndex = await getUvIndex(uvLocation)
         const speechText = `The current UV Index is ${uvIndex}. `
@@ -82,8 +82,8 @@ const fallbackIntentHandler = {
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
-            .speak('I am not sure I understood you. Do you want to know about current risk from sunburns?')
-            .reprompt('Want to know if you need sunscreen?')
+            .speak('I am not sure I understood you. Be sure to include your location with each request.')
+            .reprompt('Try asking how strong the sun is in Boston.')
             .withShouldEndSession(false)
             .getResponse()
     }
@@ -124,7 +124,7 @@ const launchRequestHandler = {
     handle(handlerInput) {
         return handlerInput.responseBuilder
             .speak("Welcome to Burn Alert! Try asking how strong the sun is in Boston.")
-            .reprompt('Want to know how strong the sun is today?')
+            .reprompt('Welcome to Burn Alert! Try asking how strong the sun is in Boston.')
             .withShouldEndSession(false)
             .getResponse()
     }
